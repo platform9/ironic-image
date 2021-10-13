@@ -1,18 +1,25 @@
 interface={{ env["PROVISIONING_INTERFACE"] }}
 bind-dynamic
-enable-tftp
-tftp-root=/shared/tftpboot
-
-# Disable listening for DNS
-port=0
 
 {%- if env["DHCP_RANGE"]|length %}
 log-dhcp
 dhcp-range={{ env["DHCP_RANGE"] }}
 
-# Disable default router(s) and DNS over provisioning network
+{%- if env["DHCP_DEFAULT_GW"]|length %}
+dhcp-option=option:router,{{ env["DHCP_DEFAULT_GW"] }}
+{% else %}
+# Disable default router(s) over provisioning network
 dhcp-option=3
+{% endif %}
+
+{%- if env["DHCP_DNS_SERVER"]|length %}
+dhcp-option=option:dns-server,{{ env["DHCP_DNS_SERVER"] }}
+{% else %}
+# Disable listening for DNS
+port=0
+# Disable DNS over provisioning network
 dhcp-option=6
+{% endif %}
 
 {%- if env["IPV"] == "4" or env["IPV"] is undefined %}
 # IPv4 Configuration:
@@ -36,9 +43,9 @@ dhcp-boot=/undionly.kpxe,{{ env["IRONIC_IP"] }}
 enable-ra
 ra-param={{ env["PROVISIONING_INTERFACE"] }},0,0
 
-dhcp-vendorclass=set:pxe6,enterprise:343,PXEClient
+#dhcp-vendorclass=set:pxe6,enterprise:343,PXEClient
 dhcp-userclass=set:ipxe6,iPXE
-dhcp-option=tag:pxe6,option6:bootfile-url,tftp://{{ env["IRONIC_URL_HOST"] }}/snponly.efi
+#dhcp-option=tag:pxe6,option6:bootfile-url,tftp://{{ env["IRONIC_URL_HOST"] }}/snponly.efi
 dhcp-option=tag:ipxe6,option6:bootfile-url,http://{{ env["IRONIC_URL_HOST"] }}:{{ env["HTTP_PORT"] }}/boot.ipxe
 
 # Disable default router(s) and DNS over provisioning network
