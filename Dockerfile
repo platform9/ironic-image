@@ -46,6 +46,7 @@ RUN prepare-image.sh && \
 
 
 COPY scripts/ /bin/
+RUN chmod +x /bin/createdb
 
 # IRONIC #
 RUN chown ironic:ironic /var/log/ironic && \
