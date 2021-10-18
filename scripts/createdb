@@ -1,5 +1,5 @@
 #!/bin/bash
-mysql -h mysql -u root -p${MARIADB_PASSWORD} <<SQL_QUERY
+mysql -h mysql -u root -p${MYSQL_ROOT_PASSWORD} <<SQL_QUERY
  CREATE USER IF NOT EXISTS 'ironic'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD' ;
  CREATE USER IF NOT EXISTS 'ironic'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;
  GRANT ALL on *.* TO 'ironic'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION ;
