@@ -19,7 +19,7 @@ rpc_transport = json-rpc
 use_stderr = true
 # NOTE(dtantsur): the default md5 is not compatible with FIPS mode
 hash_ring_algorithm = sha256
-my_ip = {{ env.IRONIC_IP }}
+my_ip = {{ env.IRONIC_MY_IP }}
 {% if env.IRONIC_DEPLOYMENT == "Conductor" and env.JSON_RPC_AUTH_STRATEGY == "noauth" %}
 # if access is unauthenticated, we bind only to localhost - use that as the
 # host name also, so that the client can find the server
@@ -67,7 +67,7 @@ send_sensor_data = {{ env.SEND_SENSOR_DATA }}
 # Power state is checked every 60 seconds and BMC activity should
 # be avoided more often than once every sixty seconds.
 send_sensor_data_interval = 160
-bootloader = http://{{ env.IRONIC_URL_HOST }}:{{ env.HTTP_PORT }}/uefi_esp.img
+bootloader = http://{{ env.IRONIC_MY_IP }}:{{ env.HTTP_PORT }}/uefi_esp.img
 
 [database]
 connection = mysql+pymysql://ironic:{{ env.MYSQL_PASSWORD }}@mysql-svc/ironic?charset=utf8
@@ -77,7 +77,7 @@ default_boot_option = local
 erase_devices_metadata_priority = 10
 erase_devices_priority = 0
 http_root = /shared/html/
-http_url = http://{{ env.IRONIC_URL_HOST }}:{{ env.HTTP_PORT }}
+http_url = http://{{ env.IRONIC_MY_IP }}:{{ env.HTTP_PORT }}
 fast_track = {{ env.IRONIC_FAST_TRACK }}
 {% if env.IRONIC_BOOT_ISO_SOURCE %}
 ramdisk_image_download_source = {{ env.IRONIC_BOOT_ISO_SOURCE }}
