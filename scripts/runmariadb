@@ -60,4 +60,3 @@ EOSQL
 else
     exec bash -x /usr/bin/mysqld_safe
 fi
-
