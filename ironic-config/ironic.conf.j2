@@ -70,7 +70,7 @@ send_sensor_data_interval = 160
 bootloader = http://{{ env.IRONIC_URL_HOST }}:{{ env.HTTP_PORT }}/uefi_esp.img
 
 [database]
-connection = mysql+pymysql://ironic:{{ env.MYSQL_PASSWORD }}@mysql/ironic?charset=utf8
+connection = mysql+pymysql://ironic:{{ env.MYSQL_PASSWORD }}@mysql-svc/ironic?charset=utf8
 
 [deploy]
 default_boot_option = local
