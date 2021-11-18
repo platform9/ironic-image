@@ -70,11 +70,7 @@ send_sensor_data_interval = 160
 bootloader = http://{{ env.IRONIC_URL_HOST }}:{{ env.HTTP_PORT }}/uefi_esp.img
 
 [database]
-{% if env.MARIADB_TLS_ENABLED == "true" %}
-connection = mysql+pymysql://ironic:{{ env.MARIADB_PASSWORD }}@127.0.0.1/ironic?charset=utf8&ssl=on&ssl_ca={{ env.MARIADB_CACERT_FILE }}
-{% else %}
-connection = mysql+pymysql://ironic:{{ env.MARIADB_PASSWORD }}@127.0.0.1/ironic?charset=utf8
-{% endif %}
+connection = mysql+pymysql://ironic:{{ env.MYSQL_PASSWORD }}@mysql-svc/ironic?charset=utf8
 
 [deploy]
 default_boot_option = local
