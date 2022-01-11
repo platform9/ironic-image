@@ -4,14 +4,21 @@ help:
 	@echo "  docker -- build the docker image"
 
 IMG_TAG ?= v1.1.1
-IMG_REPO ?= platform9/ironic-image
+IRONIC_REPO ?= platform9/ironic-image
+VBMC_REPO ?= platform9/vbmc
 
 .PHONY: build push release
 build:
-	docker build -t $(IMG_REPO):$(IMG_TAG) .
+	docker build -t $(IRONIC_REPO):$(IMG_TAG) .
 
 push: build
-	docker push $(IMG_REPO):$(IMG_TAG)
+	docker push $(IRONIC_REPO):$(IMG_TAG)
 
-release: push
-	docker rmi -f `docker images $(IMG_REPO) -q`
+vbmc:
+	cd resources/vbmc && \
+	docker build -t $(VBMC_REPO):$(IMG_TAG) . && \
+	docker push $(VBMC_REPO):${IMG_TAG}
+
+release: push vbmc
+	docker rmi -f `docker images $(IRONIC_REPO) -q`
+	docker rmi -f `docker images $(VBMC_REPO) -q`
