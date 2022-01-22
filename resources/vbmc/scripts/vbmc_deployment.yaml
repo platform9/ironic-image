@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baremetal-operator-vbmc
+  namespace: baremetal-operator-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: baremetal-operator-vbmc
+  template:
+    metadata:
+      labels:
+        name: baremetal-operator-vbmc
+    spec:
+      containers:
+      - image: docker.io/platform9/vbmc:latest
+        imagePullPolicy: Always
+        name: vbmc
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
