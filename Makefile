@@ -3,7 +3,8 @@ help:
 	@echo "Targets:"
 	@echo "  docker -- build the docker image"
 
-IMG_TAG = latest
+METAL3_VERSION ?= 0.5.1
+IMG_TAG = v$METAL3_VERSION
 IRONIC_REPO = platform9/ironic-image
 VBMC_REPO = platform9/vbmc
 
