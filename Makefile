@@ -3,8 +3,9 @@ help:
 	@echo "Targets:"
 	@echo "  docker -- build the docker image"
 
-IMG_TAG = latest
-IRONIC_REPO = platform9/ironic-image
+METAL3_VERSION ?= 0.5.1
+IMG_TAG = v$(METAL3_VERSION)
+IRONIC_REPO ?= platform9/ironic-image
 VBMC_REPO = platform9/vbmc
 
 .PHONY: build push release
