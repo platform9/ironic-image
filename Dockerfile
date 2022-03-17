@@ -6,7 +6,7 @@ ARG BASE_IMAGE=quay.io/centos/centos:stream8
 
 FROM $BASE_IMAGE AS ironic-builder
 
-RUN dnf install -y gcc git make xz-devel
+RUN dnf install -y gcc git make xz-devel glibc-gconv-extra
 WORKDIR /tmp
 RUN git clone https://github.com/ipxe/ipxe.git && \
       cd ipxe && \
