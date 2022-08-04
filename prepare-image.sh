@@ -14,7 +14,7 @@ dnf install -y python3 python3-requests 'dnf-command(config-manager)'
 if [[ $INSTALL_TYPE == "rpm" ]]; then
     curl https://raw.githubusercontent.com/openstack/tripleo-repos/master/plugins/module_utils/tripleo_repos/main.py | python3 - -b master current-tripleo
     # NOTE(elfosardo): enable CRB repo for more python3 dependencies
-    dnf config-manager --set-enabled crb
+    dnf config-manager --set-enabled powertools 
     dnf upgrade -y
     xargs -rtd'\n' dnf install -y < $IRONIC_PKG_LIST
 fi
@@ -26,7 +26,7 @@ if [[ $INSTALL_TYPE == "source" ]]; then
     # NOTE(dtantsur): pip is a requirement of python3 in CentOS
     dnf install -y python3-pip $BUILD_DEPS
     pip3 install pip==21.3.1
-    pip3 install --prefix /usr -r $IRONIC_PKG_LIST -c https://raw.githubusercontent.com/openstack/requirements/master/upper-constraints.txt
+    pip3 install --prefix /usr -r $IRONIC_PKG_LIST -c https://raw.githubusercontent.com/openstack/requirements/stable/yoga/upper-constraints.txt
 
     # ironic and ironic-inspector system configuration
     mkdir -p /var/log/ironic /var/log/ironic-inspector /var/lib/ironic /var/lib/ironic-inspector
@@ -47,7 +47,7 @@ if [[ ! -z ${EXTRA_PKGS_LIST:-} ]]; then
     fi
 fi
 
-dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 dnf config-manager --set-disabled epel
 dnf install -y --enablerepo=epel inotify-tools
 
