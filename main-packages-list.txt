@@ -5,6 +5,7 @@ ipcalc
 ipmitool
 iproute
 mod_ssl
+mysql
 procps
 python3-jinja2
 python3-mod_wsgi
