@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-set -euxo pipefail
-
 CONFIG=/etc/ironic-inspector/ironic-inspector.conf
 
 export IRONIC_INSPECTOR_ENABLE_DISCOVERY=${IRONIC_INSPECTOR_ENABLE_DISCOVERY:-false}
